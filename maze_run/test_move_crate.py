@@ -1,14 +1,70 @@
 """
 test_move_crate_right.py.
 
-ddd
+druhá verze, používá parametrize dat a fixture
 """
-from maze_run.crate import LEVEL
 from maze_run.draw_maze import parse_grid
 from maze_run.moves import move
 from maze_run.moves import LEFT, RIGHT, UP, DOWN
 import pytest
 
+LEVEL = """
+#######
+#.....#
+#..o..#
+#.o*o.#
+#..o..#
+#.....#
+#######"""
+
+LEVEL_NO_DOTS = LEVEL.replace('.', ' ')
+
+PATHS = [
+    (UP, LEFT),
+    (LEFT, UP),
+    (RIGHT, UP, LEFT, LEFT),
+    pytest.param((DOWN, DOWN), marks=pytest.mark.xfail(reason = 'záměrná chyba')),
+]
+
+PATH_PLAYERPOS = [
+    ((LEFT,), 2, 3),
+    ((LEFT, RIGHT), 3, 3),
+    ((RIGHT, RIGHT), 4, 3),
+]
+
+@pytest.fixture(params=[LEVEL, LEVEL_NO_DOTS])
+def level(request):
+    """Level with four single crates."""
+    return parse_grid(request.param)
+
+def test_move_crate_to_corner(level):
+    """Move tom crate to upper left corner."""
+    for d in [UP, RIGHT, UP, LEFT, LEFT, LEFT]:
+        move(level, d)
+    assert level [1][1] == "o"
+
+def test_move_crate_back_forth(level):
+    """Sanity check: move the top crate twice."""
+    for d in [LEFT, UP, RIGHT, UP, RIGHT, RIGHT, DOWN, LEFT, LEFT, LEFT]:
+        move(level, d)
+    assert level [2] == list('#o*   #')
+
+@pytest.mark.parametrize('path', PATHS)
+def test_paths(path, level):
+    """Different paths lead to the same spot. Jeden parametr (path)."""
+    for direction in path:
+        move(level,direction)
+    assert level[2][2] == '*'
+
+@pytest.mark.parametrize('path, expected_x, expected_y', PATH_PLAYERPOS)
+def test_move_player(level, path, expected_x, expected_y):
+    """Korektní změna pozice hráče. Více parametrů - path, expected_x, expected_y."""
+    for direction in path:
+        move(level,direction)
+    assert level[expected_y][expected_x] == '*'
+
+
+# tyto další testy nevyužívají data připravená formulí fixtures
 def move_crate(direction, plr_pos, crate_pos):
     """Help function for testing crate moves."""
     maze = parse_grid(LEVEL)
@@ -62,15 +118,6 @@ def test_push_crate_to_wall_left():
     #o*.#
     #####"""
     push_crate_to_wall(LEFT,plan)
-
-def test_push_crate_to_wall_up():
-    """Test push crate to wall up."""
-    plan = """
-    #####
-    #.o.#
-    #o*.#
-    #####"""
-    push_crate_to_wall(UP,plan)
 
 def test_push_crate_to_crate():
     """Test_push_crate_to_crate."""
