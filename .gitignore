@@ -3479,3 +3479,9 @@ __venv__/Lib/site-packages/text_unidecode-1.3.dist-info/WHEEL
 __venv__/Scripts/faker.exe
 maze_run/__pycache__/test_files.cpython-38-pytest-5.4.2.pyc
 maze_run/__pycache__/test_mock.cpython-38-pytest-5.4.2.pyc
+maze_run/__pycache__/fixtures.cpython-38.pyc
+maze_run/__pycache__/test_files.cpython-38-pytest-5.4.1.pyc
+maze_run/__pycache__/test_mock.cpython-38-pytest-5.4.1.pyc
+maze_run/__pycache__/test_move_crate.cpython-38-pytest-5.4.1.pyc
+maze_run/__pycache__/test_moves.cpython-38-pytest-5.4.1.pyc
+maze_run/__pycache__/test_moves.cpython-38-pytest-5.4.2.pyc

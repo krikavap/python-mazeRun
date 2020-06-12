@@ -6,18 +6,8 @@ druhá verze, používá parametrize dat a fixture
 from maze_run.draw_maze import parse_grid
 from maze_run.moves import move
 from maze_run.moves import LEFT, RIGHT, UP, DOWN
+from maze_run.fixtures import level
 import pytest
-
-LEVEL = """
-#######
-#.....#
-#..o..#
-#.o*o.#
-#..o..#
-#.....#
-#######"""
-
-LEVEL_NO_DOTS = LEVEL.replace('.', ' ')
 
 PATHS = [
     (UP, LEFT),
@@ -31,11 +21,6 @@ PATH_PLAYERPOS = [
     ((LEFT, RIGHT), 3, 3),
     ((RIGHT, RIGHT), 4, 3),
 ]
-
-@pytest.fixture(params=[LEVEL, LEVEL_NO_DOTS])
-def level(request):
-    """Level with four single crates."""
-    return parse_grid(request.param)
 
 def test_move_crate_to_corner(level):
     """Move tom crate to upper left corner."""
