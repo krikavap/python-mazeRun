@@ -4,11 +4,11 @@ __main__.py 1.0.
 dfjjf
 
 """
-from load_tiles_opr import load_tiles
-from generate_maze import create_maze
-from event_loop import event_loop
-from draw_maze import draw_grid, parse_grid
-from moves import move, LEFT, RIGHT, UP, DOWN
+from maze_run.load_tiles_opr import load_tiles
+from maze_run.generate_maze import create_maze
+from maze_run.event_loop import event_loop
+from maze_run.draw_maze import draw_grid, parse_grid
+from maze_run.moves import move, LEFT, RIGHT, UP, DOWN
 from pygame import Rect
 import pygame
 

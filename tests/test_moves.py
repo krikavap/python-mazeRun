@@ -7,7 +7,7 @@ všechny testy pohybu.
 from maze_run.draw_maze import parse_grid
 from maze_run.moves import move
 from maze_run.moves import LEFT, RIGHT, UP, DOWN
-from maze_run.fixtures import level, LEVEL
+from tests.fixtures import level, LEVEL
 import pytest
 
 CRATE_MOVES = [
@@ -22,7 +22,7 @@ PATHS = [
     ((UP, LEFT),2, 2),
     ((LEFT, UP), 2, 2),
     ((RIGHT, UP, LEFT, LEFT), 2, 2),
-    pytest.param ((DOWN, DOWN), 0, 0, marks=pytest.mark.xfail),
+    pytest.param ((DOWN, DOWN), 0, 0, marks=pytest.mark.xfail(reason = 'Záměrná chyba výsledku')),
     ((LEFT, ), 2, 3),
     ((LEFT, RIGHT), 3, 3),
     ((RIGHT, RIGHT), 4, 3),
@@ -30,30 +30,23 @@ PATHS = [
 
 def move_crate(direction, plr_pos, crate_pos):
     """Help function for testing crate moves."""
-    maze = parse_grid(LEVEL)
-    move(maze, direction)
-    assert maze[plr_pos[0]][plr_pos[1]] == '*'
-    assert maze[crate_pos[0]][crate_pos[1]] == 'o'
+    #maze = parse_grid(LEVEL)
+    move(level, direction)
+    assert level[plr_pos[0]][plr_pos[1]] == '*'
+    assert level[crate_pos[0]][crate_pos[1]] == 'o'
 
 class TestCrateMoves:
     """All tests crate moves."""
 
-    def test_move_crate_left(self):
-        """Test move crate to left."""
-        move_crate(LEFT, (3,2), (3,1))
+    @pytest.mark.parametrize('direction, plr_pos, crate_pos', CRATE_MOVES)
+    def test_move_crate(self, level, direction, plr_pos, crate_pos):
+        """After move player and crate moved by one square."""
+        print(direction, plr_pos, crate_pos)
+        move(level, direction)
+        assert level[plr_pos[0]] [plr_pos[1]] == '*'
+        assert level[crate_pos[0]][crate_pos[1]] == 'o'
 
-    def test_move_crate_right(self):
-        """´Test move crate to right."""
-        move_crate(RIGHT, (3,4), (3,5))
-
-    def test_move_crate_up(self):
-        """Test move crate to up."""
-        move_crate(UP, (2,3), (1,3))
-
-    def test_move_crate_down(self):
-        """Test move crate to down."""
-        move_crate(DOWN, (4,3), (5,3))
-    
+        
     def push_crate_to_wall(self, direction, retezec):
         """Help function to test push to wall."""
         maze = parse_grid(retezec)
@@ -82,6 +75,12 @@ class TestCrateMoves:
         maze = parse_grid('*oo')
         move(maze,RIGHT)
         assert maze ==[['*','o','o']]
+
+    def test_move_crate_to_corner(self, level):
+        """Move tom crate to upper left corner."""
+        for d in [UP, RIGHT, UP, LEFT, LEFT, LEFT]:
+            move(level, d)
+        assert level [1][1] == "o"
 
     def test_move_crate_back_forth(self, level):
         """Sanity check: move the top crate twice."""

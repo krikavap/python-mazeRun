@@ -3485,3 +3485,12 @@ maze_run/__pycache__/test_mock.cpython-38-pytest-5.4.1.pyc
 maze_run/__pycache__/test_move_crate.cpython-38-pytest-5.4.1.pyc
 maze_run/__pycache__/test_moves.cpython-38-pytest-5.4.1.pyc
 maze_run/__pycache__/test_moves.cpython-38-pytest-5.4.2.pyc
+tests/__pycache__/fixtures.cpython-38.pyc
+tests/__pycache__/test_files.cpython-38-pytest-5.4.1.pyc
+tests/__pycache__/test_files.cpython-38-pytest-5.4.2.pyc
+tests/__pycache__/test_mock.cpython-38-pytest-5.4.1.pyc
+tests/__pycache__/test_mock.cpython-38-pytest-5.4.2.pyc
+tests/__pycache__/test_move_crate.cpython-38-pytest-5.4.1.pyc
+tests/__pycache__/test_move_crate.cpython-38-pytest-5.4.2.pyc
+tests/__pycache__/test_moves.cpython-38-pytest-5.4.1.pyc
+tests/__pycache__/test_moves.cpython-38-pytest-5.4.2.pyc

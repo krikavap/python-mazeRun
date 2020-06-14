@@ -1,7 +1,7 @@
-'''
-__init__.py
+"""
+__init__.py.
 
 from . import load_tiles
 from . import moves
 from . import draw_maze
-'''
+"""
