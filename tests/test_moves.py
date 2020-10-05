@@ -4,10 +4,11 @@ test_moves.py - všechny testy pohybu.
 všechny testy pohybu.
 """
 
-from maze_run.draw_maze import parse_grid
-from maze_run.moves import move
-from maze_run.moves import LEFT, RIGHT, UP, DOWN
-from tests.fixtures import level, LEVEL
+from draw_maze import parse_grid
+from moves import move
+from moves import LEFT, RIGHT, UP, DOWN
+from tests.fixtures import level
+
 import pytest
 
 CRATE_MOVES = [
